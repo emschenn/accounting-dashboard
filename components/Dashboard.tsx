@@ -19,7 +19,7 @@ function Dashboard({ data, user }: Props) {
   }
 
   return (
-    <div className="rounded-t-2xl bg-white text-black shadow-2xl">
+    <div className="rounded-t-2xl bg-white text-black drop-shadow-[0_-4px_8px_rgba(0,0,0,0.1)]">
       <div className="flex items-end justify-end gap-x-4 px-8 py-6">
         Total:{" "}
         <span className="text-2xl font-semibold">{calculateTotal()}</span>

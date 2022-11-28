@@ -11,7 +11,7 @@ type Props = {
 
 const Expense = ({ data, user }: Props) => {
   return (
-    <div className="flex justify-between border-b border-neutral-300 bg-white p-4">
+    <div className="flex items-start justify-between border-b border-neutral-300 bg-white p-4">
       <div className="flex gap-x-2">
         <div className="font-light  text-neutral-500">
           {new Date(data.date).getDate()}
@@ -19,7 +19,7 @@ const Expense = ({ data, user }: Props) => {
         <div>{cat2EmojiTable[data.category.name] ?? "⚪️"}</div>
         <div>{data.description}</div>
       </div>
-      <div className="flex items-center gap-x-2">
+      <div className="flex shrink-0 items-center gap-x-2 pl-4">
         <div className="flex flex-row gap-x-1">
           {/* {user === "All"
             ?  */}

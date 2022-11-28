@@ -14,9 +14,9 @@ function Selector({ icon, data, selected, setSelected }: Props) {
     <div className="">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative ">
-          <Listbox.Button className="relative flex items-center gap-x-2 rounded-full bg-neutral-200 py-1.5 px-4 ">
-            <div className="h-5 w-5">{icon}</div>
-            <span className="block truncate">{selected}</span>
+          <Listbox.Button className="relative flex max-w-[8rem] items-center gap-x-2 rounded-full bg-neutral-200 py-1.5 px-4">
+            <div className="h-5 w-5 shrink-0">{icon}</div>
+            <div className="block truncate">{selected}</div>
           </Listbox.Button>
           <Transition
             as={Fragment}
