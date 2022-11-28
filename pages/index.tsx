@@ -3,13 +3,13 @@ import { Listbox } from "@headlessui/react";
 import { UserCircleIcon, BarsArrowUpIcon } from "@heroicons/react/24/solid";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
-import useExpenses from "./hooks/useExpenses";
-import { getCurrentDate } from "./utils/getCurrentDate";
+import useExpenses from "../hooks/useExpenses";
+import { getCurrentDate } from "../utils/getCurrentDate";
 
-import Expense from "./components/Expense";
-import Selector from "./components/Selector";
-import MonthSelector from "./components/MonthSelector";
-import Dashboard from "./components/Dashboard";
+import Expense from "../components/Expense";
+import Selector from "../components/Selector";
+import MonthSelector from "../components/MonthSelector";
+import Dashboard from "../components/Dashboard";
 
 export default function Home() {
   const { data, isLoading, isError } = useExpenses();
