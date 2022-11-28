@@ -24,7 +24,7 @@ export default function Home() {
         <div className="flex items-center justify-center">Loading...</div>
       ) : (
         <>
-          <div className="p-2">
+          <div className=" p-2">
             <div className="px-2 pt-6">
               <MonthSelector />
             </div>
@@ -48,7 +48,7 @@ export default function Home() {
                 setSelected={setSortBy}
               />
             </div>
-            <div>
+            <div className="pb-24">
               {data!.expenses
                 .sort((a, b) => {
                   if (sortBy === "Money") return +b.cost - +a.cost;

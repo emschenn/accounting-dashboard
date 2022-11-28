@@ -31,7 +31,12 @@ const useExpenses = () => {
       setIsError(false);
       setIsLoading(true);
 
-      fetch("http://localhost:3000/api/expenses")
+      const url =
+        process.env.NODE_ENV === "production"
+          ? "https://accounting-dashboard.vercel.app/"
+          : "http://localhost:3000/";
+
+      fetch(url + "api/expenses")
         .then((res) => res.json())
         .then((data) => {
           const expenses: IFullExpense[] = data.expenses;
