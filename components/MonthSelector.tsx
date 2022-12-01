@@ -4,11 +4,11 @@ type Props = {};
 
 function MonthSelector({}: Props) {
   return (
-    <div className="text-5xl font-bold pb-6">
+    <div className="pb-6 text-5xl font-bold text-neutral-700">
       {new Date().toLocaleString("default", {
         month: "short",
       })}
-      <span className=" text-gold"> {new Date().getFullYear()}</span>
+      <span className=" text-splitwise"> {new Date().getFullYear()}</span>
     </div>
   );
 }

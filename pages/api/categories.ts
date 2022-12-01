@@ -6,15 +6,12 @@ export default async function handler(
 ) {
   const URL = "https://secure.splitwise.com/api/v3.0";
 
-  await fetch(
-    `${URL}/get_expenses/?group_id=${process.env.SPLITWISE_GROUP_ID}&limit=10000`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${process.env.SPLITWISE_API_TOKEN}`,
-      },
-    }
-  )
+  await fetch(`${URL}/get_categories`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${process.env.SPLITWISE_API_TOKEN}`,
+    },
+  })
     .then((response) => response.json())
     .then((data) => res.status(200).json(data))
     .catch((error) => {

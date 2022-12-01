@@ -2,11 +2,17 @@ import React, { useState, Fragment } from "react";
 
 import { Listbox, Transition } from "@headlessui/react";
 
+type Data = {
+  id: number;
+  name: string;
+  icon?: string;
+};
+
 type Props = {
   icon: JSX.Element;
-  data: string[];
-  selected: string;
-  setSelected: (value: string) => void;
+  data: Data[];
+  selected: Data;
+  setSelected: (value: Data) => void;
 };
 
 function Selector({ icon, data, selected, setSelected }: Props) {
@@ -16,7 +22,7 @@ function Selector({ icon, data, selected, setSelected }: Props) {
         <div className="relative ">
           <Listbox.Button className="relative flex max-w-[8rem] items-center gap-x-2 rounded-full bg-neutral-200 py-1.5 px-4">
             <div className="h-5 w-5 shrink-0">{icon}</div>
-            <div className="block truncate">{selected}</div>
+            <div className="block truncate">{selected.name}</div>
           </Listbox.Button>
           <Transition
             as={Fragment}
@@ -25,9 +31,9 @@ function Selector({ icon, data, selected, setSelected }: Props) {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 overflow-auto rounded-md bg-neutral-100 py-1 text-sm shadow-md">
-              {data.map((d, index) => (
+              {data.map((d) => (
                 <Listbox.Option
-                  key={index}
+                  key={d.id}
                   className={({ active }) =>
                     `relative cursor-pointer select-none py-1.5 px-4 pl-12 text-gray-900 ${
                       active ? "bg-neutral-200 text-grass" : ""
@@ -43,7 +49,7 @@ function Selector({ icon, data, selected, setSelected }: Props) {
                           : "font-normal"
                       }`}
                     >
-                      {d}
+                      {d.name}
                     </span>
                   )}
                 </Listbox.Option>
