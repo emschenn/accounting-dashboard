@@ -9,6 +9,7 @@ type Props = {
   selectedSortBy: string;
   selectedUser: string;
   selectedCat: string;
+  selectedDateRange: { start: string; end: string };
 };
 
 function Expenses({
@@ -16,6 +17,7 @@ function Expenses({
   selectedSortBy,
   selectedUser,
   selectedCat,
+  selectedDateRange,
 }: Props) {
   const [processedData, setProcessedData] = useState<IExpense[]>([]);
 
@@ -24,6 +26,13 @@ function Expenses({
       .sort((a, b) => {
         if (selectedSortBy === "Money") return +b.cost - +a.cost;
         else return a.date < b.date ? 1 : -1;
+      })
+      .filter((d) => {
+        const { start, end } = selectedDateRange;
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const date = new Date(d.date);
+        return date < endDate && date > startDate;
       })
       .filter((d) => {
         if (selectedUser === "All") return true;
@@ -42,8 +51,7 @@ function Expenses({
       });
 
     setProcessedData(d);
-    console.log(d);
-  }, [selectedCat, selectedSortBy, selectedUser, expenses]);
+  }, [selectedCat, selectedSortBy, selectedUser, expenses, selectedDateRange]);
 
   return (
     <div>

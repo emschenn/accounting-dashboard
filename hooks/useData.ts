@@ -89,8 +89,12 @@ const useExpenses = () => {
           const expenses: IExpense[] = responseExpenses
             .filter((e) => e.deleted_at === null)
             .map(({ id, category, description, cost, date, users }) => {
-              const subCat = categories.filter((c) => c.id === category.id)[0];
-              const cat = categories.filter((c) => c.id === subCat.parent)[0];
+              const subCat: ICategory = categories.filter(
+                (c) => c.id === category.id
+              )[0];
+              const cat: ICategory = categories.filter(
+                (c) => c.id === subCat.parent
+              )[0];
               return {
                 id,
                 category: {

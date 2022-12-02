@@ -5,10 +5,10 @@ import Image from "next/image";
 type Props = {
   img: string;
   name: string;
-  isRounded: boolean;
+  isRounded?: boolean;
 };
 
-function Icon({ name, img, isRounded }: Props) {
+function Icon({ name, img, isRounded = false }: Props) {
   return (
     <Image
       alt={name}

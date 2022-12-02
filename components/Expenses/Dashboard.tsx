@@ -24,18 +24,20 @@ function Dashboard({ data, selectedUser, selectedCat }: Props) {
 
   return (
     <div
-      className={`shadow-topp flex flex-col gap-y-6 rounded-t-2xl bg-splitwise-dark px-5 py-4 text-white transition-all ease-in-out ${
+      className={`shadow-topp m-auto flex flex-col gap-y-6 rounded-t-2xl bg-splitwise-dark px-5 py-4 text-white transition-all ease-in-out md:w-1/2 ${
         isOpen ? "max-h-96" : "max-h-16"
       }`}
     >
-      <div className="flex items-end justify-between">
+      <div
+        className="flex items-end justify-between"
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
         <ChevronUpIcon
           className={`mr-5 h-6 w-6 rotate-180 stroke-2 transition-all ease-in-out ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
         />
         <div className="flex items-end justify-end gap-x-3 ">
           Total:

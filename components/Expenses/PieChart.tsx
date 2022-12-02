@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ResponsivePie } from "@nivo/pie";
+import { animated } from "@react-spring/web";
 
 import { IExpense } from "../../interfaces/expense";
+import Icon from "../Icon";
 
 type Props = {
   data: IExpense[];
@@ -10,10 +12,11 @@ type Props = {
 };
 
 interface IPieChartData {
-  id: string;
+  id: number;
   label: string;
   value: number;
   color?: string;
+  icon?: string;
 }
 
 function PieChart({ data, selectedUser, selectedCat }: Props) {
@@ -30,8 +33,9 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
       else {
         acc[cat.name] = {
           value: cost,
-          id: cat.name,
+          id: cat.id,
           label: cat.name,
+          icon: cat.icon,
         };
       }
       return acc;
@@ -42,7 +46,7 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
   return (
     <ResponsivePie
       data={pieChartData}
-      margin={{ top: 20, right: 40, bottom: 20, left: 40 }}
+      margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       innerRadius={0.5}
       padAngle={2}
       cornerRadius={4}
@@ -54,6 +58,30 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
         modifiers: [["darker", 0.2]],
       }}
       enableArcLinkLabels={false}
+      arcLabelsComponent={({ label, style }) => (
+        <animated.g
+          transform={style.transform as any}
+          style={{ pointerEvents: "none" }}
+        >
+          <text
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill={style.textColor}
+            style={{
+              fontSize: 10,
+            }}
+          >
+            ${" "}
+            <tspan
+              style={{
+                fontWeight: 800,
+              }}
+            >
+              {label}
+            </tspan>
+          </text>
+        </animated.g>
+      )}
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor="#333333"
       arcLinkLabelsThickness={2}
@@ -64,6 +92,14 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
         from: "color",
         modifiers: [["darker", 2]],
       }}
+      tooltip={({ datum: t }) => (
+        <div className="flex items-center justify-center gap-x-1 rounded-md bg-white p-2 shadow">
+          {t.data.icon && <Icon name={t.data.label} img={t.data.icon} />}
+          {t.data.label}: $
+          <span className="ml-[-2px] font-bold">{t.value}</span>
+        </div>
+      )}
+
       //   fill={[
       //     {
       //       match: {

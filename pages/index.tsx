@@ -6,7 +6,7 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import useData from "../hooks/useData";
 
 import Selector from "../components/Selector";
-import MonthSelector from "../components/MonthSelector";
+import DateSelectModal from "../components/DateSelectModal";
 import Expenses from "../components/Expenses/";
 
 type SelectorData = {
@@ -22,6 +22,10 @@ export default function Home() {
     { name: "Money", id: 1 },
   ];
 
+  const [dateRange, setDateRange] = useState<{ start: string; end: string }>({
+    start: `${new Date().toISOString().slice(0, 8)}01`,
+    end: new Date().toISOString().slice(0, 10),
+  });
   const [user, setUser] = useState<SelectorData>(defaultData);
   const [cat, setCat] = useState<SelectorData>(defaultData);
   const [sortBy, setSortBy] = useState<SelectorData>(sortByData[0]);
@@ -37,47 +41,50 @@ export default function Home() {
         <title>$$$</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <main className="m-auto h-full w-full font-satoshi md:w-1/2">
+      <main className="m-auto h-full w-full p-2 font-satoshi md:w-1/2">
         {isLoading || !data?.expenses ? (
           <div className="flex items-center justify-center">Loading...</div>
         ) : (
           <>
-            <div className=" p-2">
-              <div className="px-2 pt-6">
-                <MonthSelector />
-              </div>
-              <div className="flex gap-x-3 px-2 pb-6">
-                <Selector
-                  icon={<UserCircleIcon />}
-                  data={[defaultData, ...data.users]}
-                  selected={user}
-                  setSelected={setUser}
-                />
-                <Selector
-                  icon={<Squares2X2Icon />}
-                  data={[
-                    defaultData,
-                    ...data.categories.filter((c) => c.parent === -1),
-                  ]}
-                  selected={cat}
-                  setSelected={setCat}
-                />
-                <Selector
-                  icon={<BarsArrowUpIcon />}
-                  data={sortByData}
-                  selected={sortBy}
-                  setSelected={setSortBy}
-                />
-              </div>
-              {/* <div className="pb-24"> */}
-              <Expenses
-                expenses={data.expenses}
-                selectedSortBy={sortBy.name}
-                selectedUser={user.name}
-                selectedCat={cat.name}
+            <div className="px-2 pt-6">
+              <DateSelectModal
+                selectedDateRange={dateRange}
+                setSelectedDateRange={setDateRange}
               />
-              {/* </div> */}
             </div>
+            <div className="flex gap-x-3 px-2 pb-6">
+              <Selector
+                icon={<UserCircleIcon />}
+                data={[defaultData, ...data.users]}
+                selected={user}
+                setSelected={setUser}
+              />
+              <Selector
+                icon={<Squares2X2Icon />}
+                data={[
+                  defaultData,
+                  ...data.categories.filter((c) => c.parent === -1),
+                ]}
+                selected={cat}
+                setSelected={setCat}
+              />
+              <Selector
+                icon={<BarsArrowUpIcon />}
+                data={sortByData}
+                selected={sortBy}
+                setSelected={setSortBy}
+              />
+            </div>
+            {/* <div className="pb-24"> */}
+            <Expenses
+              expenses={data.expenses}
+              selectedDateRange={dateRange}
+              selectedSortBy={sortBy.name}
+              selectedUser={user.name}
+              selectedCat={cat.name}
+            />
+            {/* </div> */}
+            {/* </div> */}
           </>
         )}
       </main>
