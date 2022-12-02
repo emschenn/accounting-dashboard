@@ -37,7 +37,7 @@ export default function Home() {
         <title>$$$</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <main className="m-auto h-full w-full  font-satoshi md:w-1/2">
+      <main className="m-auto h-full w-full font-satoshi md:w-1/2">
         {isLoading || !data?.expenses ? (
           <div className="flex items-center justify-center">Loading...</div>
         ) : (
@@ -72,9 +72,9 @@ export default function Home() {
               {/* <div className="pb-24"> */}
               <Expenses
                 expenses={data.expenses}
-                chosenSortBy={sortBy.name}
-                chosenUser={user.name}
-                chosenCat={cat.name}
+                selectedSortBy={sortBy.name}
+                selectedUser={user.name}
+                selectedCat={cat.name}
               />
               {/* </div> */}
             </div>

@@ -6,44 +6,58 @@ import Dashboard from "./Dashboard";
 
 type Props = {
   expenses: IExpense[];
-  chosenSortBy: string;
-  chosenUser: string;
-  chosenCat: string;
+  selectedSortBy: string;
+  selectedUser: string;
+  selectedCat: string;
 };
 
-function Expenses({ expenses, chosenSortBy, chosenUser, chosenCat }: Props) {
+function Expenses({
+  expenses,
+  selectedSortBy,
+  selectedUser,
+  selectedCat,
+}: Props) {
   const [processedData, setProcessedData] = useState<IExpense[]>([]);
 
   useEffect(() => {
     let d = expenses
       .sort((a, b) => {
-        if (chosenSortBy === "Money") return +b.cost - +a.cost;
+        if (selectedSortBy === "Money") return +b.cost - +a.cost;
         else return a.date < b.date ? 1 : -1;
       })
       .filter((d) => {
-        if (chosenUser === "All") return true;
+        if (selectedUser === "All") return true;
         const users = d.users.map(({ name }) => name);
-        if (users.includes(chosenUser)) return true;
+        if (users.includes(selectedUser)) return true;
         return false;
       })
       .filter((d) => {
-        if (chosenCat === "All") return true;
-        if (d.category.name === chosenCat) return true;
+        if (selectedCat === "All") return true;
+        if (d.category.name === selectedCat) return true;
         return false;
+      })
+      .map((d) => {
+        if (selectedUser === "All") return d;
+        return { ...d, users: d.users.filter((u) => u.name === selectedUser) };
       });
 
     setProcessedData(d);
-  }, [chosenCat, chosenSortBy, chosenUser, expenses]);
+    console.log(d);
+  }, [selectedCat, selectedSortBy, selectedUser, expenses]);
 
   return (
     <div>
       <div className="pb-24">
         {processedData.map((d) => (
-          <ExpenseItem key={d.id} expense={d} chosenUser={chosenUser} />
+          <ExpenseItem key={d.id} expense={d} selectedUser={selectedUser} />
         ))}
       </div>
-      <div className="fixed bottom-0 right-3 ">
-        <Dashboard data={processedData} user={chosenUser} />
+      <div className="fixed bottom-0 right-2 left-2 bg-gradient-to-t from-white via-white pt-12 ">
+        <Dashboard
+          data={processedData}
+          selectedUser={selectedUser}
+          selectedCat={selectedCat}
+        />
       </div>
     </div>
   );

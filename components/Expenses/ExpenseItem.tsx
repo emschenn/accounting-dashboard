@@ -5,10 +5,10 @@ import Icon from "../Icon";
 
 type Props = {
   expense: IExpense;
-  chosenUser: string;
+  selectedUser: string;
 };
 
-const ExpenseItem = ({ expense, chosenUser }: Props) => {
+const ExpenseItem = ({ expense, selectedUser }: Props) => {
   return (
     <div className="flex items-start justify-between border-b border-neutral-300 bg-white p-4">
       <div className="flex items-start gap-x-2">
@@ -40,11 +40,11 @@ const ExpenseItem = ({ expense, chosenUser }: Props) => {
         </div>
         <div className="text-md font-medium">
           <span className="pr-0.5 font-light">$</span>
-          {chosenUser === "All" || expense.users.length === 1 ? (
+          {selectedUser === "All" || expense.users.length === 1 ? (
             expense.cost
           ) : (
             <span className="text-grass">
-              {expense.users.filter((u) => u.name === chosenUser)[0].share}
+              {expense.users.filter((u) => u.name === selectedUser)[0].share}
             </span>
           )}
         </div>
