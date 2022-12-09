@@ -29,10 +29,10 @@ function Expenses({
       })
       .filter((d) => {
         const { start, end } = selectedDateRange;
-        const startDate = new Date(start);
-        const endDate = new Date(end);
-        const date = new Date(d.date);
-        return date < endDate && date > startDate;
+        const startDate = new Date(start).setHours(0, 0, 0, 0);
+        const endDate = new Date(end).setHours(0, 0, 0, 0);
+        const date = new Date(d.date).setHours(0, 0, 0, 0);
+        return date <= endDate && date >= startDate;
       })
       .filter((d) => {
         if (selectedUser === "All") return true;
@@ -44,11 +44,11 @@ function Expenses({
         if (selectedCat === "All") return true;
         if (d.category.name === selectedCat) return true;
         return false;
-      })
-      .map((d) => {
-        if (selectedUser === "All") return d;
-        return { ...d, users: d.users.filter((u) => u.name === selectedUser) };
       });
+    // .map((d) => {
+    //   if (selectedUser === "All") return d;
+    //   return { ...d, users: d.users.filter((u) => u.name === selectedUser) };
+    // });
 
     setProcessedData(d);
   }, [selectedCat, selectedSortBy, selectedUser, expenses, selectedDateRange]);
