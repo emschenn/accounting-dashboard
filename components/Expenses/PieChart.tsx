@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { animated } from "@react-spring/web";
+import randomColor from "randomcolor";
 
 import { IExpense } from "../../interfaces/expense";
 import Icon from "../Icon";
@@ -19,8 +20,23 @@ interface IPieChartData {
   icon?: string;
 }
 
+const colorConfig: { [k: string]: string } = {
+  Entertainment: "#C7DAE6",
+  "Food and drink": "#D7E5C5",
+  Home: "#DFD5C5",
+  Life: "#F4DDDB",
+  Transportation: "#DECDE2",
+  Uncategorized: "#E6E8ED",
+  Utilities: "#E1C7BF",
+};
+
 function PieChart({ data, selectedUser, selectedCat }: Props) {
   const [pieChartData, setPieChartData] = useState<IPieChartData[]>([]);
+
+  const c = randomColor({
+    count: 10,
+    hue: "green",
+  });
 
   useEffect(() => {
     let pieData = data.reduce<{ [k: string]: IPieChartData }>((acc, curr) => {
@@ -40,12 +56,32 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
       }
       return acc;
     }, {});
+
+    if (selectedCat === "All") {
+      Object.entries(colorConfig).forEach((c) => {
+        let [key, color] = c;
+        if (pieData[key]) pieData[key] = { ...pieData[key], color };
+      });
+    } else {
+      const colors = randomColor({
+        count: Object.keys(pieData).length,
+        luminosity: "light",
+        hue: colorConfig[selectedCat],
+      });
+      Object.entries(pieData).forEach((c) => {
+        let [key, _] = c;
+        if (pieData[key])
+          pieData[key] = { ...pieData[key], color: colors.pop() };
+      });
+    }
+
     setPieChartData(Object.values(pieData));
   }, [data, selectedCat, selectedUser]);
 
   return (
     <ResponsivePie
       data={pieChartData}
+      colors={{ datum: "data.color" }}
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       innerRadius={0.5}
       padAngle={2}
@@ -99,82 +135,6 @@ function PieChart({ data, selectedUser, selectedCat }: Props) {
           <span className="ml-[-2px] font-bold">{t.value}</span>
         </div>
       )}
-
-      //   fill={[
-      //     {
-      //       match: {
-      //         id: "ruby",
-      //       },
-      //       id: "dots",
-      //     },
-      //     {
-      //       match: {
-      //         id: "c",
-      //       },
-      //       id: "dots",
-      //     },
-      //     {
-      //       match: {
-      //         id: "go",
-      //       },
-      //       id: "dots",
-      //     },
-      //     {
-      //       match: {
-      //         id: "python",
-      //       },
-      //       id: "dots",
-      //     },
-      //     {
-      //       match: {
-      //         id: "scala",
-      //       },
-      //       id: "lines",
-      //     },
-      //     {
-      //       match: {
-      //         id: "lisp",
-      //       },
-      //       id: "lines",
-      //     },
-      //     {
-      //       match: {
-      //         id: "elixir",
-      //       },
-      //       id: "lines",
-      //     },
-      //     {
-      //       match: {
-      //         id: "javascript",
-      //       },
-      //       id: "lines",
-      //     },
-      //   ]}
-      //   legends={[
-      //     {
-      //       anchor: "bottom",
-      //       direction: "row",
-      //       justify: false,
-      //       translateX: 0,
-      //       translateY: 60,
-      //       itemsSpacing: 0,
-      //       itemWidth: 50,
-      //       itemHeight: 18,
-      //       itemTextColor: "#707070",
-      //       itemDirection: "left-to-right",
-      //       itemOpacity: 1,
-      //       symbolSize: 12,
-      //       symbolShape: "circle",
-      //       effects: [
-      //         {
-      //           on: "hover",
-      //           style: {
-      //             itemTextColor: "#000",
-      //           },
-      //         },
-      //       ],
-      //     },
-      //   ]}
     />
   );
 }
