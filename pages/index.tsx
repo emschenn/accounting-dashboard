@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { UserCircleIcon, BarsArrowUpIcon } from "@heroicons/react/24/solid";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
@@ -43,7 +44,10 @@ export default function Home() {
       </Head>
       <main className="m-auto h-full w-full p-2 font-satoshi md:w-1/2">
         {isLoading || !data?.expenses ? (
-          <div className="flex items-center justify-center">Loading...</div>
+          <div className="flex h-full flex-col items-center justify-center">
+            <Image src="/timu.gif" alt="my gif" height={160} width={160} />
+            <div className="-translate-y-6">Loading...</div>
+          </div>
         ) : (
           <>
             <div className="px-2 pt-6">
