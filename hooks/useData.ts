@@ -136,45 +136,6 @@ const useExpenses = () => {
           setIsLoading(false);
           console.error(error);
         });
-
-      //   fetch(url + "api/expenses")
-      //     .then((res) => res.json())
-      //     .then((data) => {
-      //       const expenses: IResponseOfExpenses[] = data.expenses;
-      //       return expenses
-      //         .filter((e) => e.deleted_at === null)
-      //         .map(({ id, category, description, cost, date, users }) => ({
-      //           id,
-      //           categoryId: getCategoriesBySub(category.id).id,
-      //           subCategoryId: category.id,
-      //           description,
-      //           cost,
-      //           date,
-      //           users: users.map((u) => ({
-      //             name: u.user.first_name,
-      //             picture: u.user.picture.medium,
-      //             share: u.owed_share,
-      //           })),
-      //         }));
-      //     })
-      //     .then((data) => {
-      //       const users: string[] = [];
-      //       data.forEach((d) => {
-      //         d.users.forEach((u) => {
-      //           if (!users.includes(u.name)) users.push(u.name);
-      //         });
-      //       });
-      //       setData({
-      //         expenses: data,
-      //         users,
-      //       });
-      //       setIsLoading(false);
-      //     })
-      //     .catch((error) => {
-      //       setIsError(true);
-      //       setIsLoading(false);
-      //       console.error(error);
-      //     });
     };
 
     fetchData();

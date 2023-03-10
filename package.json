@@ -14,7 +14,7 @@
     "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",
     "@nivo/pie": "^0.80.0",
-    "@react-spring/web": "^9.5.5",
+    "@react-spring/web": "9.3.1",
     "@types/node": "18.11.9",
     "@types/randomcolor": "^0.5.7",
     "@types/react": "18.0.25",
