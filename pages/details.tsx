@@ -169,10 +169,8 @@ function Details() {
         ]}
       />
       <motion.div
-        className={`mt-4 grid ${
-          showChart ? "h-14" : "h-20"
-        } grid-cols-2  gap-x-1.5`}
-        animate={{ height: showChart ? 56 : 80 }}
+        className={`mt-4 grid grid-cols-2  gap-x-1.5`}
+        animate={{ height: showChart ? 28 : 72 }}
         transition={{ duration: 0.4 }}
       >
         <div
@@ -213,7 +211,7 @@ function Details() {
               </div>
             </div>
             {showChart === "bar" ? (
-              <div className="relative my-2 h-[380px] w-full overflow-x-auto overflow-y-hidden">
+              <div className="relative my-2 h-[300px] w-full overflow-x-auto overflow-y-hidden">
                 {d && data ? (
                   <StackedBarChart
                     animationKey={animationKey}

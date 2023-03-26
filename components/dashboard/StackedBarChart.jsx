@@ -10,7 +10,7 @@ import { groupExpensesByCategory } from "../../utils/expensesUtils";
 function StackedBarChart({ data, cats, animationKey, setSelectedExpenses }) {
   const barWidth = 60;
   const barPadding = 16;
-  const height = 350;
+  const height = 270;
   const marginX = 10;
   const marginY = 40;
   const [selectedBar, setSelectedBar] = useState(null);
@@ -130,8 +130,8 @@ function StackedBarChart({ data, cats, animationKey, setSelectedExpenses }) {
                           <rect
                             {...positionProp}
                             height={height + 40}
-                            rx="10"
-                            ry="10"
+                            rx="6"
+                            ry="6"
                           />
                         </motion.clipPath>
                       )}
