@@ -1,56 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 
 type Props = {
   selectedDateRange: { start: string; end: string };
   openModal: () => void;
 };
 
-type DateTimeFormatOptions = {
-  weekday?: "long" | "short" | "narrow";
-  year?: "numeric" | "2-digit";
-  month?: "numeric" | "2-digit" | "long" | "short" | "narrow";
-  day?: "numeric" | "2-digit";
-};
-
 function DateSelector({ selectedDateRange, openModal }: Props) {
-  const [shownDate, setShownDate] = useState<string>("");
-  const [dateStyle, setDateStyle] = useState<string>("");
+  const shownDate = useMemo(() => {
+    const { start: s, end: e } = selectedDateRange;
+    const start = new Date(s);
+    const end = new Date(e);
 
-  useEffect(() => {
-    const { start, end } = selectedDateRange;
-    if (start.slice(0, 7) === end.slice(0, 7)) {
-      const option: DateTimeFormatOptions = {
-        year: "numeric",
-        month: "short",
-      };
-      new Date(start).toLocaleDateString("en-US", option);
-      const date = new Date(start).toLocaleDateString("en-US", option);
-      setShownDate(date.replace(" ", ", "));
-      setDateStyle("text-4xl");
+    const startY = start.getFullYear();
+    const endY = end.getFullYear();
+
+    const startM = start.getMonth() + 1;
+    const endM = end.getMonth() + 1;
+
+    const startD = start.getDate();
+    const endD = end.getDate();
+
+    const startMAbbr = start.toLocaleString("default", { month: "short" });
+    const endMAbbr = end.toLocaleString("default", { month: "short" });
+
+    const now = new Date();
+
+    if (startM === endM && startY === endY) {
+      let word = "";
+      if (
+        start.getDate() === 1 &&
+        end.getDate() === now.getDate() &&
+        start.getMonth() === now.getMonth()
+      )
+        word = startMAbbr.toUpperCase();
+      else if (startD === 1 && endD >= new Date(endY, endM, 0).getDate())
+        word = startMAbbr.toUpperCase();
+      else word = `${startMAbbr.toUpperCase()} ${startD} - ${endD}`;
+
+      if (startY !== now.getFullYear())
+        return word + ` '${startY.toString().slice(-2)}`;
+      return word;
+    } else if (startY === endY) {
+      let word = `${startMAbbr.toUpperCase()} ${startD} - ${endMAbbr.toUpperCase()} ${endD}`;
+      if (startY !== now.getFullYear())
+        return word + ` '${startY.toString().slice(-2)}`;
+      return word;
     } else {
-      const option: DateTimeFormatOptions = {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      let startDate = new Date(start).toLocaleDateString("en-US", option);
-      let endDate = new Date(end).toLocaleDateString("en-US", option);
-      if (endDate.slice(-4) === startDate.slice(-4)) {
-        startDate = startDate.slice(0, -6);
-      }
-      setShownDate(`${startDate} 〰️ ${endDate}`);
-      setDateStyle("text-2xl");
+      return `${startMAbbr.toUpperCase()} ${startD}'${startY
+        .toString()
+        .slice(-2)} - ${endMAbbr.toUpperCase()} ${endD}'${endY
+        .toString()
+        .slice(-2)}`;
     }
   }, [selectedDateRange]);
 
-  return (
-    <div
-      className={`pb-6 font-bold text-neutral-700 ${dateStyle}`}
-      onClick={openModal}
-    >
-      {shownDate}
-    </div>
-  );
+  return <span onClick={openModal}>{shownDate}</span>;
 }
 
 export default DateSelector;

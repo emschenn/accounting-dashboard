@@ -1,6 +1,5 @@
-import React, { useState, Fragment } from "react";
-
 import { Listbox, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
 
 type Data = {
   id: number;
@@ -35,7 +34,7 @@ function Selector({ icon, data, selected, setSelected }: Props) {
                 <Listbox.Option
                   key={d.id}
                   className={({ active }) =>
-                    `relative cursor-pointer select-none py-1.5 px-4 pl-12 text-gray-900 ${
+                    `text-gray-900 relative cursor-pointer select-none py-1.5 px-4 pl-12 ${
                       active ? "bg-neutral-200 text-grass" : ""
                     }`
                   }

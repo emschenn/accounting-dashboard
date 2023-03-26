@@ -1,15 +1,9 @@
+import { ICategory } from "./category";
+
 export interface IExpense {
   id: number;
-  category: {
-    id: number;
-    icon: string;
-    name: string;
-  };
-  subCategory: {
-    id: number;
-    icon: string;
-    name: string;
-  };
+  category: ICategory;
+  subCategory: ICategory;
   description: string;
   cost: string;
   date: string;

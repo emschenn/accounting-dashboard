@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       fontFamily: {
         satoshi: ["Satoshi"],
+        krona: ["Krona One"],
+        sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
       },
       width: {
         inherit: "inherit",
@@ -17,6 +19,20 @@ module.exports = {
         gold: "#DFB85C",
         splitwise: "#5AC5A7",
         "splitwise-dark": "#3f8c76",
+        gray: "D8D8D0",
+        gray: "D8D8D0",
+        gray: "D8D8D0",
+        gray: "D8D8D0",
+        custom: {
+          bg: "#fafafa",
+          red: "#C55A34",
+          green: "#2B4427",
+          cyan: "#78A390",
+          yellow: "#EAB840",
+          pink: "#D08DAD",
+          blue: "#A4C0D9",
+          beige: "#D8D8D0",
+        },
       },
       borderRadius: {
         xxl: "2rem",

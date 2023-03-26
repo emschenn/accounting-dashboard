@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
 
 import DateSelector from "./DateSelector";
 import ModalContent from "./ModalContent";
@@ -51,7 +51,7 @@ function DataSelectModal({ selectedDateRange, setSelectedDateRange }: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-custom-red p-6 text-left align-middle shadow-xl transition-all">
                   <ModalContent
                     closeModal={closeModal}
                     selectedDateRange={selectedDateRange}

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   selectedDateRange: { start: string; end: string };
@@ -21,9 +21,7 @@ const ModalContent = ({
   return (
     <>
       <div className=" flex flex-col gap-y-4">
-        <h1 className="pb-2 text-2xl font-medium text-splitwise-dark">
-          Select Date
-        </h1>
+        <h1 className="pb-2 text-2xl font-black text-white">Select Date</h1>
         <div className="flex flex-col gap-y-2">
           <h2
             className={`text-lg ${
@@ -34,7 +32,7 @@ const ModalContent = ({
               else setSelectedType("month");
             }}
           >
-            Choose a month
+            Choose a Month
           </h2>
           {selectedType === "month" && (
             <input
@@ -52,7 +50,7 @@ const ModalContent = ({
               type="month"
               min="2022-10"
               value={tmpSelectedDateRange.start.slice(0, 7)}
-              className="mb-6 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5  text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 "
+              className="border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 mb-6 block  w-full rounded-lg  border p-2.5 text-sm dark:text-white "
             />
           )}
         </div>
@@ -66,7 +64,7 @@ const ModalContent = ({
               else setSelectedType("range");
             }}
           >
-            Custom date range
+            Custom Date Range
           </h2>
           {/* </div> */}
           {selectedType === "range" && (
@@ -80,7 +78,7 @@ const ModalContent = ({
                 }}
                 value={tmpSelectedDateRange.start}
                 type="date"
-                className="block w-full flex-2 rounded-lg border border-gray-300 bg-gray-50 p-2.5  text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                className="border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 block w-full  flex-2 rounded-lg  border p-2.5 text-sm dark:text-white"
                 placeholder="Select date"
               />
               <div>-</div>
@@ -93,7 +91,7 @@ const ModalContent = ({
                 }}
                 value={tmpSelectedDateRange.end}
                 type="date"
-                className="block w-full flex-2 rounded-lg border border-gray-300 bg-gray-50 p-2.5  text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                className="border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 block w-full  flex-2 rounded-lg  border p-2.5 text-sm dark:text-white"
                 placeholder="Select date"
               />
             </div>
@@ -103,7 +101,7 @@ const ModalContent = ({
       <div className="mt-8 flex justify-center gap-x-6">
         <button
           type="button"
-          className="inline-flex justify-center rounded-lg border border-transparent bg-neutral-200 px-4 py-2 text-black hover:font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+          className="inline-flex justify-center rounded-lg border border-transparent bg-custom-beige px-4 py-2 text-white hover:font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
           onClick={() => {
             closeModal();
             setSelectedDateRange(tmpSelectedDateRange);
