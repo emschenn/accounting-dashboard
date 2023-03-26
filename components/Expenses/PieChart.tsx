@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { animated } from "@react-spring/web";
 import randomColor from "randomcolor";
+import React, { useEffect, useState } from "react";
 
 import { IExpense } from "../../interfaces/expense";
 import Icon from "../Icon";

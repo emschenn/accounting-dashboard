@@ -19,7 +19,7 @@ const ExpenseItem = ({ expense, selectedUser }: Props) => {
           <Icon
             isRounded={false}
             name={expense.subCategory.name}
-            img={expense.subCategory.icon}
+            img={"Home.png"}
           />
         </div>
 

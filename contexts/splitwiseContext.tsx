@@ -1,8 +1,14 @@
-import { useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
-import { IExpense } from "../interfaces/expense";
 import { ICategory } from "../interfaces/category";
+import { IExpense } from "../interfaces/expense";
 import { IUser } from "../interfaces/user";
+
+interface ISplitwiseContextProps {
+  data: IData | undefined;
+  isLoading: boolean;
+  isError: boolean;
+}
 
 interface IResponseOfGroup {
   members: {
@@ -43,7 +49,27 @@ interface IData {
   categories: ICategory[];
 }
 
-const useExpenses = () => {
+export const SplitwiseContext = createContext<ISplitwiseContextProps>({
+  data: undefined,
+  isLoading: false,
+  isError: false,
+});
+
+const categoryColor: Record<string, string> = {
+  Utilities: "#A4C0D9",
+  Uncategorized: "#D8D8D0",
+  Entertainment: "#D08DAD",
+  "Food and drink": "#78A390",
+  Home: "#EAB840",
+  Life: "#C55A34",
+  Transportation: "#2B4427",
+};
+
+export const SplitwiseContextProvider = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
   const [data, setData] = useState<IData>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -55,7 +81,7 @@ const useExpenses = () => {
 
       const url =
         process.env.NODE_ENV === "production"
-          ? "https://accounting-dashboard.vercel.app/"
+          ? "https://dollarsdollars.vercel.app/"
           : "http://localhost:3000/";
 
       const endpoint = ["api/expenses", "api/group", "api/categories"];
@@ -75,7 +101,13 @@ const useExpenses = () => {
           const categories: ICategory[] = [];
           responseCategories.forEach(({ id, name, icon, subcategories }) => {
             let parentId = id;
-            categories.push({ id, name, icon, parent: -1 });
+            categories.push({
+              id,
+              name,
+              icon,
+              color: categoryColor[name],
+              parent: -1,
+            });
             categories.push(
               ...subcategories.map(({ id, name, icon }) => ({
                 id,
@@ -97,16 +129,8 @@ const useExpenses = () => {
               )[0];
               return {
                 id,
-                category: {
-                  id: cat.id,
-                  icon: cat.icon,
-                  name: cat.name,
-                },
-                subCategory: {
-                  id: subCat.id,
-                  icon: subCat.icon,
-                  name: subCat.name,
-                },
+                category: cat,
+                subCategory: subCat,
                 description,
                 cost,
                 date,
@@ -141,7 +165,15 @@ const useExpenses = () => {
     fetchData();
   }, []);
 
-  return { data, isLoading, isError };
+  return (
+    <SplitwiseContext.Provider
+      value={{
+        data,
+        isLoading,
+        isError,
+      }}
+    >
+      {children}
+    </SplitwiseContext.Provider>
+  );
 };
-
-export default useExpenses;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { IExpense } from "../../interfaces/expense";
-import ExpenseItem from "./ExpenseItem";
 import Dashboard from "./Dashboard";
+import ExpenseItem from "./ExpenseItem";
 
 type Props = {
   expenses: IExpense[];
