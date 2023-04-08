@@ -1,0 +1,33 @@
+{
+  "theme_color": "#C55A34",
+  "background_color": "#C55A34",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "name": "(\u202f\u275b\u202f\u035c\u0296\u202f\u275b\u202f)",
+  "short_name": "(\u202f\u275b\u202f\u035c\u0296\u202f\u275b\u202f)",
+  "description": "accounting dashboard",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
