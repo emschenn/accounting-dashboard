@@ -2,6 +2,7 @@ import { sum } from "d3-array";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 
+import DonutChart from "../components/dashboard/DonutChart";
 import ExpenseItem from "../components/dashboard/ExpenseItem";
 import Selector from "../components/dashboard/Selector";
 import StackedBarChart from "../components/dashboard/StackedBarChart";
@@ -175,11 +176,14 @@ function Details() {
       >
         <div
           className="cursor-pointer rounded-lg bg-red-300 bg-[url('/svg/donut.svg')] bg-cover bg-center"
-          onClick={() => setShowChart("bar")}
+          onClick={() => {
+            setSelectedExpenses(undefined);
+            setShowChart((s) => (s === "bar" ? null : "bar"));
+          }}
         />
         <div
           className="cursor-pointer rounded-lg bg-red-300 bg-[url('/svg/donut.svg')] bg-cover bg-center"
-          onClick={() => setShowChart("donut")}
+          onClick={() => setShowChart((s) => (s === "donut" ? null : "donut"))}
         />
       </motion.div>
       <AnimatePresence>
@@ -191,25 +195,6 @@ function Details() {
             exit={{ opacity: 0 }}
             className="bg-white"
           >
-            <div className="mt-2 flex justify-between text-sm italic ">
-              <div
-                className="font-light"
-                onClick={() => {
-                  setAnimationKey((k) => ++k);
-                }}
-              >
-                View all
-              </div>
-              <div
-                className="font-light"
-                onClick={() => {
-                  setShowChart(null);
-                  setSelectedExpenses(undefined);
-                }}
-              >
-                Close
-              </div>
-            </div>
             {showChart === "bar" ? (
               <div className="relative my-2 h-[300px] w-full overflow-x-auto overflow-y-hidden">
                 {d && data ? (
@@ -224,7 +209,9 @@ function Details() {
                 )}
               </div>
             ) : (
-              <></>
+              <div className="relative my-2 h-[200px] w-full">
+                <DonutChart data={data} />
+              </div>
             )}
           </motion.div>
         ) : (
