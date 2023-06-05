@@ -2,11 +2,12 @@ import { sum } from "d3-array";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 
-import ExpenseItem from "../components/dashboard/ExpenseItem";
-import Selector from "../components/dashboard/Selector";
-import StackedBarChart from "../components/dashboard/StackedBarChart";
 import DataSelectModal from "../components/DateSelectModal";
 import DateSelector from "../components/DateSelectModal/DateSelector";
+import DonutChart from "../components/details/DonutChart";
+import ExpenseItem from "../components/details/ExpenseItem";
+import Selector from "../components/details/Selector";
+import StackedBarChart from "../components/details/StackedBarChart";
 import Layout from "../components/Layout";
 import { useSplitwiseContext } from "../contexts";
 import { IExpense } from "../interfaces/expense";
@@ -57,12 +58,18 @@ const ALL_USERS = "Both";
 function Details() {
   const { data: d, isLoading, isError } = useSplitwiseContext();
 
+  const currentDate = new Date();
+  console.log(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1));
   const [selectedDateRange, setSelectedDateRange] = useState<{
     start: string;
     end: string;
   }>({
-    start: `${new Date().toISOString().slice(0, 8)}01`,
-    end: new Date().toISOString().slice(0, 10),
+    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2)
+      .toISOString()
+      .split("T")[0],
+    end: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+      .toISOString()
+      .split("T")[0],
   });
   const [selectedCategory, setSelectedCategory] =
     useState<string>(ALL_CATEGORIES);
@@ -175,11 +182,14 @@ function Details() {
       >
         <div
           className="cursor-pointer rounded-lg bg-red-300 bg-[url('/svg/donut.svg')] bg-cover bg-center"
-          onClick={() => setShowChart("bar")}
+          onClick={() => {
+            setSelectedExpenses(undefined);
+            setShowChart((s) => (s === "bar" ? null : "bar"));
+          }}
         />
         <div
           className="cursor-pointer rounded-lg bg-red-300 bg-[url('/svg/donut.svg')] bg-cover bg-center"
-          onClick={() => setShowChart("donut")}
+          onClick={() => setShowChart((s) => (s === "donut" ? null : "donut"))}
         />
       </motion.div>
       <AnimatePresence>
@@ -191,25 +201,6 @@ function Details() {
             exit={{ opacity: 0 }}
             className="bg-white"
           >
-            <div className="mt-2 flex justify-between text-sm italic ">
-              <div
-                className="font-light"
-                onClick={() => {
-                  setAnimationKey((k) => ++k);
-                }}
-              >
-                View all
-              </div>
-              <div
-                className="font-light"
-                onClick={() => {
-                  setShowChart(null);
-                  setSelectedExpenses(undefined);
-                }}
-              >
-                Close
-              </div>
-            </div>
             {showChart === "bar" ? (
               <div className="relative my-2 h-[300px] w-full overflow-x-auto overflow-y-hidden">
                 {d && data ? (
@@ -224,7 +215,9 @@ function Details() {
                 )}
               </div>
             ) : (
-              <></>
+              <div className="relative my-2 h-[200px] w-full">
+                <DonutChart data={data} />
+              </div>
             )}
           </motion.div>
         ) : (

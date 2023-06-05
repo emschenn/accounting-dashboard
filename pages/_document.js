@@ -15,8 +15,6 @@ export default function Document() {
         />
         <link rel="apple-touch-icon" href="/app-icon.png" />
         <link rel="icon" type="image/x-icon" href="/web-icon.png" />
-        {/* <title>( ❛ ͜ʖ ❛ )</title> */}
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <body className="bg-custom-bg">
         <Main />

@@ -8,6 +8,9 @@ import { SplitwiseContextProvider } from "../contexts/splitwiseContext";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <title>( ❛ ͜ʖ ❛ )</title>
+      </Head>
       <SplitwiseContextProvider>
         <Component {...pageProps} />
       </SplitwiseContextProvider>

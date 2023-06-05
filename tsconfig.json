@@ -19,8 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/dashboard/StackedBarChart.jsx",
-    "components/dashboard/StackedBarChart.jsx"
+    "components/details/StackedBarChart.jsx",
+    "components/details/StackedBarChart.jsx"
   ],
   "exclude": ["node_modules"]
 }
