@@ -40,6 +40,7 @@ interface IResponseOfExpenses
     owed_share: string;
   }[];
   deleted_at: string | null;
+  creation_method: string | null;
   category: { name: string; id: number };
 }
 
@@ -119,7 +120,7 @@ export const SplitwiseContextProvider = ({
           });
 
           const expenses: IExpense[] = responseExpenses
-            .filter((e) => e.deleted_at === null)
+            .filter((e) => e.creation_method === null && e.deleted_at === null)
             .map(({ id, category, description, cost, date, users }) => {
               const subCat: ICategory = categories.filter(
                 (c) => c.id === category.id
