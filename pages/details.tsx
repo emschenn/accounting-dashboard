@@ -58,12 +58,18 @@ const ALL_USERS = "Both";
 function Details() {
   const { data: d, isLoading, isError } = useSplitwiseContext();
 
+  const currentDate = new Date();
+  console.log(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1));
   const [selectedDateRange, setSelectedDateRange] = useState<{
     start: string;
     end: string;
   }>({
-    start: `${new Date().toISOString().slice(0, 8)}01`,
-    end: new Date().toISOString().slice(0, 10),
+    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2)
+      .toISOString()
+      .split("T")[0],
+    end: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+      .toISOString()
+      .split("T")[0],
   });
   const [selectedCategory, setSelectedCategory] =
     useState<string>(ALL_CATEGORIES);

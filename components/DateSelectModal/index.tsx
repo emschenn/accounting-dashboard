@@ -1,8 +1,7 @@
-import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
 
 import DateSelector from "./DateSelector";
-import ModalContent from "./ModalContent";
 
 type Props = {
   selectedDateRange: { start: string; end: string };
@@ -20,49 +19,85 @@ function DataSelectModal({ selectedDateRange, setSelectedDateRange }: Props) {
     setIsOpen(true);
   }
 
+  const monthAbbreviations = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   return (
     <>
       <DateSelector
         openModal={openModal}
         selectedDateRange={selectedDateRange}
       />
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            className="fixed inset-0 z-10 h-full w-full bg-black bg-opacity-20 "
+            onClick={closeModal}
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
+            <motion.div
+              initial={{ y: -100 }}
+              exit={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ ease: "easeInOut", delay: 0.1, duration: 0.1 }}
+              onClick={(e) => e.stopPropagation()}
+              className="z-20 m-1 flex w-auto gap-x-6 overflow-x-auto rounded-xl bg-custom-red px-8 py-4 font-krona text-white"
+            >
+              {monthAbbreviations.map((m, index) => {
+                const date = new Date(selectedDateRange.start);
+                const month = date.getMonth();
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-custom-red p-6 text-left align-middle shadow-xl transition-all">
-                  <ModalContent
-                    closeModal={closeModal}
-                    selectedDateRange={selectedDateRange}
-                    setSelectedDateRange={setSelectedDateRange}
-                  />
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+                return (
+                  <div
+                    key={m}
+                    className={`flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-lg  ${
+                      month === index
+                        ? "rounded-full bg-white text-custom-red"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      const currentDate = new Date();
+                      const start = new Date(
+                        currentDate.getFullYear(),
+                        index,
+                        2
+                      )
+                        .toISOString()
+                        .split("T")[0];
+                      const end = new Date(
+                        currentDate.getFullYear(),
+                        index + 1,
+                        1
+                      )
+                        .toISOString()
+                        .split("T")[0];
+                      setSelectedDateRange({ start, end });
+                      closeModal();
+                    }}
+                  >
+                    {index + 1}
+                  </div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
