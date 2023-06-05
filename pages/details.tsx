@@ -2,12 +2,12 @@ import { sum } from "d3-array";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 
-import DonutChart from "../components/dashboard/DonutChart";
-import ExpenseItem from "../components/dashboard/ExpenseItem";
-import Selector from "../components/dashboard/Selector";
-import StackedBarChart from "../components/dashboard/StackedBarChart";
 import DataSelectModal from "../components/DateSelectModal";
 import DateSelector from "../components/DateSelectModal/DateSelector";
+import DonutChart from "../components/details/DonutChart";
+import ExpenseItem from "../components/details/ExpenseItem";
+import Selector from "../components/details/Selector";
+import StackedBarChart from "../components/details/StackedBarChart";
 import Layout from "../components/Layout";
 import { useSplitwiseContext } from "../contexts";
 import { IExpense } from "../interfaces/expense";
