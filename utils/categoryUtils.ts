@@ -1,4 +1,4 @@
-import { ICategory } from "../interfaces/category";
+import { ICategory } from "interfaces/splitwise";
 
 export function getCategoriesById(
   categories: ICategory[],

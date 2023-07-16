@@ -1,4 +1,5 @@
-import { IExpense } from "../interfaces/expense";
+import { ICategory, IExpense } from "interfaces/splitwise";
+
 import { formatDate } from "./dateUtils";
 
 type key = "category" | "date" | "subCategory";

@@ -1,4 +1,16 @@
-import { ICategory } from "./category";
+export interface IUser {
+  id: number;
+  name: string;
+  icon: string;
+}
+
+export interface ICategory {
+  id: number;
+  name: string;
+  icon: string;
+  color?: string;
+  parent: number;
+}
 
 export interface IExpense {
   id: number;
