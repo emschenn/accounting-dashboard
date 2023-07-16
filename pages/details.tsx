@@ -3,13 +3,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 
 import DataSelectModal from "../components/DateSelectModal";
-import DateSelector from "../components/DateSelectModal/DateSelector";
 import DonutChart from "../components/details/DonutChart";
 import ExpenseItem from "../components/details/ExpenseItem";
 import Selector from "../components/details/Selector";
 import StackedBarChart from "../components/details/StackedBarChart";
 import { useSplitwiseContext } from "../contexts";
-import { IExpense } from "../interfaces/expense";
+import { IExpense } from "../interfaces/splitwise";
 import { groupExpensesByDate } from "../utils/expensesUtils";
 import { formatNumber } from "../utils/formatNumber";
 

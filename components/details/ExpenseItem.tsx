@@ -1,4 +1,4 @@
-import { IExpense } from "../../interfaces/expense";
+import { IExpense } from "../../interfaces/splitwise";
 import Icon from "../Icon";
 
 type Props = {
