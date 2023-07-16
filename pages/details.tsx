@@ -8,7 +8,6 @@ import DonutChart from "../components/details/DonutChart";
 import ExpenseItem from "../components/details/ExpenseItem";
 import Selector from "../components/details/Selector";
 import StackedBarChart from "../components/details/StackedBarChart";
-import Layout from "../components/Layout";
 import { useSplitwiseContext } from "../contexts";
 import { IExpense } from "../interfaces/expense";
 import { groupExpensesByDate } from "../utils/expensesUtils";
@@ -125,16 +124,11 @@ function Details() {
     [d]
   );
 
-  if (isLoading)
-    return (
-      <Layout bgColor="bg-custom-red">
-        <div>loading</div>
-      </Layout>
-    );
+  if (isLoading) return <div>loading</div>;
   if (isError) return <div>error</div>;
 
   return (
-    <Layout>
+    <>
       <div className="w-full text-end font-krona text-lg leading-5">
         {/* {getMonthAbbreviation(selectedDateRange.start).toUpperCase()} */}
         <DataSelectModal
@@ -267,7 +261,7 @@ function Details() {
             ));
         })()}
       </div>
-    </Layout>
+    </>
   );
 }
 
