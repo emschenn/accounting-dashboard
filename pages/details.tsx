@@ -59,7 +59,6 @@ function Details() {
   const { data: d, isLoading, isError } = useSplitwiseContext();
 
   const currentDate = new Date();
-  console.log(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1));
   const [selectedDateRange, setSelectedDateRange] = useState<{
     start: string;
     end: string;

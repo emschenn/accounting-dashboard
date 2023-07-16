@@ -108,7 +108,6 @@ function StackedBarChart({ data, cats, animationKey, setSelectedExpenses }) {
           return (
             <g
               key={`date-${i}`}
-              onClick={() => console.log("??s")}
               className={selectedBar === date ? "contrast-125" : ""}
             >
               {expensesInADay
