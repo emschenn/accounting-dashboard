@@ -3,9 +3,8 @@ import { scaleBand, scaleLinear } from "d3-scale";
 import { stack } from "d3-shape";
 import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
-
-import { getDateWithOrdinalNum } from "../../utils/dateUtils";
-import { groupExpensesByCategory } from "../../utils/expensesUtils";
+import { getDateWithOrdinalNum } from "utils/dateUtils";
+import { groupExpensesByCategory } from "utils/expensesUtils";
 
 function StackedBarChart({ data, cats, animationKey, setSelectedExpenses }) {
   const barWidth = 60;

@@ -1,6 +1,5 @@
+import { ICategory, IExpense, IUser } from "interfaces/splitwise";
 import { createContext, useEffect, useState } from "react";
-
-import { ICategory, IExpense, IUser } from "../interfaces/splitwise";
 
 interface ISplitwiseContextProps {
   data: IData | undefined;

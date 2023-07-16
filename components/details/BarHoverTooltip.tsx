@@ -1,7 +1,6 @@
+import useMousePosition from "hooks/useMousePosition";
+import { IExpense } from "interfaces/splitwise";
 import { useState } from "react";
-
-import useMousePosition from "../../hooks/useMousePosition";
-import { IExpense } from "../../interfaces/splitwise";
 
 type Props = {
   data: IExpense[];

@@ -1,16 +1,15 @@
+import DataSelectModal from "components/DateSelectModal";
+import DonutChart from "components/details/DonutChart";
+import ExpenseItem from "components/details/ExpenseItem";
+import Selector from "components/details/Selector";
+import StackedBarChart from "components/details/StackedBarChart";
+import { useSplitwiseContext } from "contexts";
 import { sum } from "d3-array";
 import { AnimatePresence, motion } from "framer-motion";
+import { IExpense } from "interfaces/splitwise";
 import React, { useMemo, useState } from "react";
-
-import DataSelectModal from "../components/DateSelectModal";
-import DonutChart from "../components/details/DonutChart";
-import ExpenseItem from "../components/details/ExpenseItem";
-import Selector from "../components/details/Selector";
-import StackedBarChart from "../components/details/StackedBarChart";
-import { useSplitwiseContext } from "../contexts";
-import { IExpense } from "../interfaces/splitwise";
-import { groupExpensesByDate } from "../utils/expensesUtils";
-import { formatNumber } from "../utils/formatNumber";
+import { groupExpensesByDate } from "utils/expensesUtils";
+import { formatNumber } from "utils/formatNumber";
 
 function InlineHr() {
   return <hr className="scale-y-[0.1] border-[1px] border-black" />;
