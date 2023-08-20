@@ -29,6 +29,7 @@ export function getDaysBetween(
   startDate: Date | string,
   endDate: Date | string
 ): number {
+  console.log("test");
   let start = typeof startDate === "string" ? new Date(startDate) : startDate;
   let end = typeof endDate === "string" ? new Date(endDate) : endDate;
   const diffInMs = end.getTime() - start.getTime();
